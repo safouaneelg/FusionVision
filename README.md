@@ -86,7 +86,8 @@ It inculdes the setup of Facebook SAM and FastSAM with some tests on static imag
 
 Once your environement is fully set, you can run the py files. Here are the details:
 
-<span style="color:red">:red_circle:**_DISCLAIMER:_**:red_circle: _The provided YOLO weights in this code are customly trained, as mentioned in the paper. If FusionVision is unable to reconstruct your objects or if the objects to be detected differ from the specified (laptop computer, cup, bottle), it is recommended to use `yolov8x.pt`, `yolov8l.pt`, or `yolov8m.pt` when YOLO weights are required. A pre-trained model will be automatically downloaded and can also be used in the FusionVision code._ :izakaya_lantern: :izakaya_lantern:</span>
+:red_circle: **_DISCLAIMER:_** :red_circle:
+_The provided YOLO weights in this code are customly trained, as mentioned in the paper. If FusionVision is unable to reconstruct your objects or if the objects to be detected differ from the specified (laptop computer, cup, bottle), it is recommended to use `yolov8x.pt`, `yolov8l.pt`, or `yolov8m.pt` when YOLO weights are required. A pre-trained model will be automatically downloaded and can also be used in the FusionVision code._ :izakaya_lantern: :izakaya_lantern:
 
 
 The code for FusionVision pipeline is available at `FusionVisionV0.3.py`. To run the 3D object detection, segmentation and reconstruction, use the following terminal command:
