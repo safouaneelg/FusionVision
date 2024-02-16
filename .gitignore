@@ -1,0 +1,27 @@
+### AL ###
+#cache folder
+__pycache__/
+#Models weights
+FastSAM-s.pt
+FastSAM-x.pt
+yolo_train/yolov8s.pt
+yolo_train/yolov8n.pt
+dataset
+yolov8m.pt
+
+#Folders
+FastSAM/
+output/
+data2/
+#launch.json folder
+.vscode/
+#Extension App-file
+*.app
+#Rapid Application Development File
+rad.json
+#Translation Base-file
+*.g.xlf
+#License-file
+*.flf
+#Test results file
+TestResults.xml

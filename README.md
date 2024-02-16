@@ -1,0 +1,209 @@
+<!--![FusionVision_Elite](https://github.com/safouane95/FusionVision_Elite/assets/54261127/b3e003cd-ebf2-4f6c-b6bd-da93e155a3a7)-->
+
+![FusionVision_Elite](images/FusionVision.png)
+
+## Introduction
+
+**FusionVision Elite** is an project that combines the power of Intel RealSense camera, YOLO for object detection, and FastSAM for fast segmentation.
+The goal is to detect objects in a live RGB stream, apply *FastSAM* to segment the detected objects,
+and utilize *RealSense* to display the point cloud exclusively for the segmented area.
+The project is provided with the dataset and the weights. You'll find all the related files and training results in [yolo_train](./yolo_train).
+
+A (non-released) Webapp demo preview of YOLO and FastSAM on live realsense stream runing at 30-fps (implemented using [Streamlit](https://streamlit.io/) Workflow):
+
+<!--![3fps_rs_live_test](https://github.com/safouane95/FusionVision_Elite/assets/54261127/fec66284-1acd-4a7f-9605-54b8d5d3a077)-->
+
+<!--![Fusion_Vision_webapp](https://github.com/safouane95/FusionVision_Elite/assets/54261127/f3bfd091-fbe1-49d1-979e-386f7e7df3f8)-->
+
+![Fusion_Vision_webapp](images/Inference_YOLO_FastSAM.gif)
+
+The development and implementation of the proposed method are structured according to the detailed flowchart outlined below. This comprehensive process ensures a robust and realtime application of the proposed FusionElite approach, resulting in a fast determination, 3D localisation and isolation of 3D objects.
+
+![FusionVision_Elite-Flowchart](images/FusionVision_pipeline.gif)
+
+You can also check the RGBD 3D segmentation in this GIF:
+
+![testertester](images/FusionVision_results.gif)
+
+## Table of Contents
+
+1. [Introduction](#Introduction)
+2. [Configuration](#Configuration)
+3. [Setup Instructions](#Setup-Instructions)
+4. [CUSTOMISED DETECTION](#CUSTOMISED-DETECTION)
+
+## Configuration
+
+This project has been implemented and tested on the following configuration:
+
+- **OS:** [Ubuntu 22.04.3 LTS](https://releases.ubuntu.com/jammy/)
+- **OS type:** 64-bit
+- **RAM Memory:** 16 GB
+- **GPU:** GeForce RTX 2080 Ti
+- **Realsense-camera:** D435i
+
+![intel_realsense_D435i](https://github.com/safouane95/FusionVision_Elite/assets/54261127/950b5783-1dec-4ee7-a725-6cbe2a23e189)
+
+## Setup Instructions
+
+Before starting, please ensure that a virtual environment (`venv`) is created as RealSense cameras are not compatible with conda environments. Follow the steps below for setup:
+
+### 1st Step: Update and Install Dependencies
+```bash
+sudo apt-get update && upgrade
+sudo apt-get install libxcb-cursor0
+```
+
+### 2nd Step: Clone Repository and Install Requirements
+
+```bash
+git clone https://github.com/safouane95/FusionVision_Elite.git
+cd FusionVision_Elite/
+pip install -r requirements.txt
+```
+
+The project contains an implementation of full view point-cloud 3D reconstruction in [rs_fullview_pcloud](./rs_fullview_pcloud.py).
+It includes the RGB stream, Depth stream and point cloud visualisation in [Open3D](https://www.open3d.org/docs/latest/tutorial/geometry/pointcloud.html).
+
+You can run the viewer using the following command:
+
+```bash
+python rs_fullview_pcloud.py
+```
+
+If you'd like to test only the stream from your realsense device, run the following command
+
+```bash
+python stream/rs_livestream.py
+```
+
+### 3rd Step: SAM installation and static test
+
+Check the notebook [SAM_FastSAM_installation.ipynb](./SAM_FastSAM_installation.ipynb) for more details.
+It inculdes the setup of Facebook SAM and FastSAM with some tests on static images.
+
+### Last Step: Visualize YOLO and SAM Inferences
+
+Once your environement is fully set, you can run the py files. Here are the details:
+
+To visualize YOLO inference in live streaming:
+
+```bash
+python yolo_inference.py \
+  --weights /path/to/yolo/weight.pt \   # Path to YOLO weights file
+  --confidence_threshold 0.7 \          # Optional - Confidence threshold for YOLO inference (default: 0.7)
+  --bbox_color "red" \                  # Optional - Bounding box color (default: "red")
+  --font_scale 0.5 \                    # Optional - Font scale for displaying class_name (default: 0.5)
+  --font_thickness 1                    # Optional - Font thickness for displaying class_name (default: 1)
+
+```
+
+To visualize the result of SAM on YOLO detection:
+
+```bash
+python od_sam_inference.py \               # Run the Python script for object detection FastSAM
+  --yolo_weight /path/to/yolo/weight.pt \  # Specify the path to the YOLO weights file (e.g yolo_train/runs/detect/train/weights/best.pt)
+  --fastsam_weight 'FastSAM-x.pt' \        # Choose the FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
+  --show_mask \                            # Show a window with the estimated binary masks
+  --confidence_threshold 0.7 \             # Optional - Set the confidence threshold for YOLO detection (default: 0.7)
+  --conf 0.4 \                             # Optional - Set the confidence threshold for the FastSAM model (default: 0.4)
+  --iou 0.9                                # Optional - Set the IoU threshold for non-maximum suppression (default: 0.9)
+```
+
+To visualize both YOLO and SAM inferences simultaneously in two windows:
+
+```bash
+python yolosam_inference.py  \             # Run the Python script for object detection FastSAM
+  --yolo_weight /path/to/yolo/weight.pt \  # Specify the path to the YOLO weights file (e.g yolo_train/runs/detect/train/weights/best.pt)
+  --fastsam_weight 'FastSAM-x.pt' \        # Choose the FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
+  --show_mask \                            # Show a window with the estimated binary masks
+  --confidence_threshold 0.7 \             # Optional - Set the confidence threshold for YOLO detection (default: 0.7)
+  --bbox_color "red" \                     # Optional - Bounding box color (default: "red")
+  --font_scale 0.5 \                       # Optional - Font scale for displaying text (default: 0.5)
+  --font_thickness 1 \                     # Optional - Font thickness for displaying text (default: 1)	 
+  --conf 0.4 \                             # Optional - Set the confidence threshold for the FastSAM model (default: 0.4)
+  --iou 0.9                                # Optional - Set the IoU threshold for non-maximum suppression (default: 0.9)
+```
+
+## CUSTOMISED DETECTION
+
+You can also customise the code on specific objects.
+
+**HOWTO**:
+
+1. Prepare your annotated dataset in YOLO format:
+
+You can achieve this using free annotators like [v7lab](https://www.v7labs.com/image-annotation) or [RoboFlow](https://roboflow.com/) or other annotators of your choice.
+In this project RoboFlow has been selected.
+Make sure you have in your dataset folder `.yaml` file pointing to the right `train` and `valid` and/or `test` paths.
+
+2. Run the training:
+
+- Option 1: You can follow the tutorial [train_custom_dataset.ipynb](./yolo_train/training_custom_dataset.ipynb)
+
+- Option 2: Run the following command change /path/to/data.yaml and optionally the number of epochs (the default is 100)
+
+```bash
+python yolo_train/train_yolo.py --data /path/to/data.yaml --epochs 150
+```
+
+3. Test the inference:
+
+You can test the quality of your training using the following command
+
+```bash
+python yolo_inference.py \
+  --weights /path/to/yolo/weight.pt \  # Path to YOLO weights file
+  --confidence_threshold 0.7 \          # Optional - Confidence threshold for YOLO inference (default: 0.7)
+  --bbox_color "red" \                  # Optional - Bounding box color (default: "red")
+  --font_scale 0.5 \                    # Optional - Font scale for displaying text (default: 0.5)
+  --font_thickness 1                    # Optional - Font thickness for displaying text (default: 1)
+```
+
+choose your colors from the following table:
+
+| Color       | RGB Values          |
+|-------------|---------------------|
+| red         | (0, 0, 255)         |
+| green       | (0, 255, 0)         |
+| blue        | (255, 0, 0)         |
+| yellow      | (0, 255, 255)       |
+| purple      | (128, 0, 128)       |
+| orange      | (0, 165, 255)       |
+| cyan        | (255, 255, 0)       |
+| magenta     | (255, 0, 255)       |
+| pink        | (203, 192, 255)     |
+| teal        | (128, 128, 0)       |
+| lime        | (0, 255, 0)         |
+| brown       | (42, 42, 165)       |
+| maroon      | (0, 0, 128)         |
+| navy        | (128, 0, 0)         |
+| olive       | (0, 128, 128)       |
+| gray        | (128, 128, 128)     |
+| silver      | (192, 192, 192)     |
+| gold        | (0, 215, 255)       |
+| turquoise   | (208, 224, 64)      |
+| violet      | (211, 0, 148)       |
+| indigo      | (130, 0, 75)        |
+| lavender    | (208, 184, 170)     |
+| peach       | (255, 218, 185)     |
+| salmon      | (114, 128, 250)     |
+| sky_blue    | (235, 206, 135)     |
+| tan         | (140, 180, 210)     |
+| dark_green  | (0, 100, 0)         |
+| dark_red    | (0, 0, 139)         |
+| dark_blue   | (139, 0, 0)         |
+
+
+<em>Common_errors</em>:
+
+- If you have errors while running the training code replace all relative codes with absolute.
+- If you're encountring errors while runing the inference, it's probably due to ultralytics versionning.
+Make sure you train YOLO on you custom dataset using the version ultralytics==8.0.120
+
+- If you have the following error, it's probably due to USB port failing to receive the frames:
+        ```RuntimeError: Frame didn't arrive within 5000```
+change the port or  try again.
+
+Feel free to explore, contribute, and enhance the capabilities of RealVision Fusion!
+
