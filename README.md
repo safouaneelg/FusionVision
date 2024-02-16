@@ -1,25 +1,19 @@
-<!--![FusionVision_Elite](https://github.com/safouane95/FusionVision_Elite/assets/54261127/b3e003cd-ebf2-4f6c-b6bd-da93e155a3a7)-->
-
-![FusionVision_Elite](images/FusionVision.png)
+![FusionVision](images/FusionVision.png)
 
 ## Introduction
 
-**FusionVision Elite** is an project that combines the power of Intel RealSense camera, YOLO for object detection, and FastSAM for fast segmentation.
+**FusionVision** is an project that combines the power of Intel RealSense camera, YOLO for object detection, and FastSAM for fast segmentation.
 The goal is to detect objects in a live RGB stream, apply *FastSAM* to segment the detected objects,
 and utilize *RealSense* to display the point cloud exclusively for the segmented area.
 The project is provided with the weights only. You'll find all the related files and training results in [yolo_train](./yolo_train).
 
 A (non-released) Webapp demo preview of YOLO and FastSAM on live realsense stream runing at 30-fps (implemented using [Streamlit](https://streamlit.io/) Workflow):
 
-<!--![3fps_rs_live_test](https://github.com/safouane95/FusionVision_Elite/assets/54261127/fec66284-1acd-4a7f-9605-54b8d5d3a077)-->
-
-<!--![Fusion_Vision_webapp](https://github.com/safouane95/FusionVision_Elite/assets/54261127/f3bfd091-fbe1-49d1-979e-386f7e7df3f8)-->
-
 ![Fusion_Vision_webapp](images/Inference_YOLO_FastSAM.gif)
 
-The development and implementation of the proposed method are structured according to the detailed flowchart outlined below. This comprehensive process ensures a robust and realtime application of the proposed FusionElite approach, resulting in a fast determination, 3D localisation and isolation of 3D objects.
+The development and implementation of the proposed method are structured according to the detailed flowchart outlined below. This comprehensive process ensures a robust and realtime application of the proposed FusionVision approach, resulting in a fast determination, 3D localisation and isolation of 3D objects.
 
-![FusionVision_Elite-Flowchart](images/FusionVision_pipeline.gif)
+![FusionVision-Flowchart](images/FusionVision_pipeline.gif)
 
 You can also check the RGBD 3D segmentation in this GIF:
 
@@ -42,7 +36,7 @@ This project has been implemented and tested on the following configuration:
 - **GPU:** GeForce RTX 2080 Ti
 - **Realsense-camera:** D435i
 
-![intel_realsense_D435i](https://github.com/safouane95/FusionVision_Elite/assets/54261127/950b5783-1dec-4ee7-a725-6cbe2a23e189)
+![intel_realsense_D435i](images/RS-D435i.jpg)
 
 ## Setup Instructions
 
@@ -57,8 +51,8 @@ sudo apt-get install libxcb-cursor0
 ### 2nd Step: Clone Repository and Install Requirements
 
 ```bash
-git clone https://github.com/safouane95/FusionVision_Elite.git
-cd FusionVision_Elite/
+git clone https://github.com/safouane95/FusionVision.git
+cd FusionVision/
 pip install -r requirements.txt
 ```
 
