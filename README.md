@@ -218,13 +218,15 @@ choose your colors from the following table:
 
 <em>Common_errors</em>:
 
-- If you have errors while running the training code replace all relative codes with absolute.
+- If you have errors while running the training code replace all relative paths with absolute path in the `.yaml` file and the training code.
 - If you're encountring errors while runing the inference, it's probably due to ultralytics versionning.
 Make sure you train YOLO on you custom dataset using the version ultralytics==8.0.120
 
 - If you have the following error, it's probably due to USB port failing to receive the frames:
         ```RuntimeError: Frame didn't arrive within 5000```
-change the port or  try again.
+change the port or try again.
 
-Feel free to explore, contribute, and enhance the capabilities of RealVision Fusion!
 
+## LICENCE
+
+This code is made available for research purposes only and is not licensed for commercial use.
