@@ -63,7 +63,7 @@ pip install -r requirements.txt
 ```
 
 The project contains an implementation of full view point-cloud 3D reconstruction in [rs_fullview_pcloud](./rs_fullview_pcloud.py).
-It includes the RGB stream, Depth stream and point cloud visualisation in [Open3D](https://www.open3d.org/docs/latest/tutorial/geometry/pointcloud.html).
+It includes the RGB stream, Depth stream and point cloud visualisation based on [Open3D](https://www.open3d.org/docs/latest/tutorial/geometry/pointcloud.html) documentation.
 
 You can run the viewer using the following command:
 
