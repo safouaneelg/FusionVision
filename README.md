@@ -11,7 +11,7 @@ A (non-released) Webapp demo preview of YOLO and FastSAM on live realsense strea
 
 ![Fusion_Vision_webapp](images/Inference_YOLO_FastSAM.gif)
 
-The development and implementation of the proposed method are structured according to the detailed flowchart outlined below. This comprehensive process ensures a robust and realtime application of the proposed **FusionVision** approach, resulting in a fast determination, 3D localisation and isolation of 3D objects.
+The development and implementation of the proposed method are structured according to the detailed flowchart outlined below. This comprehensive process ensures a robust and realtime application of the proposed FusionElite approach, resulting in a fast determination, 3D localisation and isolation of 3D objects.
 
 ![FusionVision-Flowchart](images/FusionVision_pipeline.gif)
 
