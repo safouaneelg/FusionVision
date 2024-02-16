@@ -7,7 +7,7 @@
 **FusionVision Elite** is an project that combines the power of Intel RealSense camera, YOLO for object detection, and FastSAM for fast segmentation.
 The goal is to detect objects in a live RGB stream, apply *FastSAM* to segment the detected objects,
 and utilize *RealSense* to display the point cloud exclusively for the segmented area.
-The project is provided with the dataset and the weights. You'll find all the related files and training results in [yolo_train](./yolo_train).
+The project is provided with the weights only. You'll find all the related files and training results in [yolo_train](./yolo_train).
 
 A (non-released) Webapp demo preview of YOLO and FastSAM on live realsense stream runing at 30-fps (implemented using [Streamlit](https://streamlit.io/) Workflow):
 
@@ -86,7 +86,27 @@ It inculdes the setup of Facebook SAM and FastSAM with some tests on static imag
 
 Once your environement is fully set, you can run the py files. Here are the details:
 
-To visualize YOLO inference in live streaming:
+<span style="color:red">**_DISCLAIMER:_** _The provided YOLO weights in this code are customly trained, as mentioned in the paper. If FusionVision is unable to reconstruct your objects or if the objects to be detected differ from the specified (laptop computer, cup, bottle), it is recommended to use `yolov8x.pt`, `yolov8l.pt`, or `yolov8m.pt` when YOLO weights are required. A pre-trained model will be automatically downloaded and can also be used in the FusionVision code._</span>
+
+
+The code for FusionVision pipeline is available at `FusionVisionV0.3.py`. To run the 3D object detection, segmentation and reconstruction, use the following terminal command:
+
+```bash
+python FusionVisionV0.3.py \
+  --yolo_weight /path/to/yolo/weight.pt \  # Path to the YOLO weights file (e.g yolo_train/runs/detect/train/weights/best.pt)
+  --fastsam_weight 'FastSAM-x.pt' \        # Choose the FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
+  --show_yolo \                           # Optional - Show cv2 window with YOLO detection 
+  --show_fastsam \                        # Optional - Show cv2 window with FastSAM detection 
+  --show_mask \                           # Optional - Show a window with the estimated binary masks 
+  --show_3dbbox                           # Optional - Show in open3D window the 3D bounding box
+  --confidence_threshold 0.7 \            # Optional - Set different confidence threshold for YOLO detection (default: 0.7)
+  --conf 0.4 \                            # Optional - Set different confidence threshold for the FastSAM model (default: 0.4)
+  --iou 0.9 \                             # Optional - Set different IoU threshold for non-maximum suppression (default: 0.9)
+```
+
+Additionally:
+
+To visualize YOLO inference in live streaming
 
 ```bash
 python yolo_inference.py \
@@ -98,7 +118,7 @@ python yolo_inference.py \
 
 ```
 
-To visualize the result of SAM on YOLO detection:
+To visualize FastSAM estimation (considering YOLO estimated 2D bbox)
 
 ```bash
 python od_sam_inference.py \               # Run the Python script for object detection FastSAM
@@ -110,7 +130,7 @@ python od_sam_inference.py \               # Run the Python script for object de
   --iou 0.9                                # Optional - Set the IoU threshold for non-maximum suppression (default: 0.9)
 ```
 
-To visualize both YOLO and SAM inferences simultaneously in two windows:
+To visualize both YOLO and SAM inferences simultaneously in two windows
 
 ```bash
 python yolosam_inference.py  \             # Run the Python script for object detection FastSAM
