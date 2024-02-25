@@ -2,9 +2,9 @@
 
 ## Introduction
 
-**FusionVision** is an project that combines the power of Intel RealSense camera, YOLO for object detection, and FastSAM for fast segmentation.
+**FusionVision** is a project that combines the power of Intel RealSense RGBD cameras, YOLO for object detection, FastSAM for fast segmentation and depth map processing for accurate 3D.
 The goal is to detect objects in a live RGB stream, apply *FastSAM* to segment the detected objects,
-and utilize *RealSense* to display the point cloud exclusively for the segmented area.
+and use *RealSense* depth sensor to display the point cloud exclusively for the segmented area allowing a better scene understanding and accurate 3D object reconstruction and localization.
 The project is provided with the weights only. You'll find all the related files and training results in [yolo_train](./yolo_train).
 
 A (non-released) Webapp demo preview of YOLO and FastSAM on live realsense stream runing at 30-fps (implemented using [Streamlit](https://streamlit.io/) Workflow):
