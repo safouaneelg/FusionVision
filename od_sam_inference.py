@@ -99,7 +99,7 @@ def main():
                     # If no FastSAM results, show the original frame in the FastSAM window
                     cv2.imshow('FastSAM Inference', color_image)
 
-            # Check for key press to exit the loop
+            # Check for keyboard "q" press to exit the loop
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
