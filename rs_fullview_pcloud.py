@@ -3,7 +3,7 @@ import numpy as np
 import open3d as o3d
 import pyrealsense2 as rs
 
-def get_rgbd(color_frame, depth_frame, align, depth_scale=1000, depth_trunc=4, convert_rgb_to_intensity=False):
+def get_rgbd(color_frame, depth_frame, align, depth_scale=200, depth_trunc=4, convert_rgb_to_intensity=False):
     depth_image = np.asanyarray(depth_frame.get_data(), dtype=np.float32)
 
     color_image = np.asanyarray(color_frame.get_data())
@@ -71,7 +71,7 @@ def stream_realSense_with_depth_and_pointcloud():
             points.colors = new_pointcloud.colors
 
             color_image_gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
-            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(np.asanyarray(depth_frame.get_data()), alpha=0.03), cv2.COLORMAP_HOT)
+            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(np.asanyarray(depth_frame.get_data()), alpha=0.2), cv2.COLORMAP_JET)
             color_image_gray_3d = cv2.cvtColor(color_image_gray, cv2.COLOR_RGB2BGR)
 
             # Concatenate color and depth images horizontally
