@@ -6,6 +6,7 @@ from ultralytics import YOLO
 import open3d as o3d
 import pyrealsense2 as rs
 from utils import perform_yolo_inference
+import csv
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Fusion Vision Object Detection and 3D Reconstruction")
@@ -63,6 +64,8 @@ def FusionVision(args):
 
     # Create an align object
     align_to = rs.align(rs.stream.color)
+
+    coordinates_list=[]
 
     try:
         while True:
@@ -186,8 +189,30 @@ def FusionVision(args):
                             bbox_lines.transform(flip_matrix)
                             visualizer.add_geometry(bbox_lines)
 
+                            center = np.mean(np.asarray(bbox_lines.points), axis=0)
+
+                            coordinates_list.append(center)
+
+                            # length of the coordinate axes
+                            axis_length = 50
+
+                            # Create coordinate frame mesh
+                            coordinate_system = o3d.geometry.TriangleMesh.create_coordinate_frame(size=axis_length, origin=center)
+
+                            visualizer.add_geometry(coordinate_system)
+
                     visualizer.poll_events()
                     visualizer.update_renderer()
+
+                    csv_file_path = 'object_coordinates.csv'
+                    # Write the coordinates to the CSV file
+                    with open(csv_file_path, mode='w', newline='') as file:
+                        writer = csv.writer(file)
+                        # Write header if needed
+                        writer.writerow(['X', 'Y', 'Z'])
+                        # Write each set of coordinates
+                        for coordinates in coordinates_list:
+                            writer.writerow(coordinates)
 
             # if YOLO window = true
             if args.show_yolo:
@@ -210,6 +235,7 @@ def FusionVision(args):
             # Check for key press to exit the loop (press 'q' to quit)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+        
 
     finally:
         # Stop streaming
