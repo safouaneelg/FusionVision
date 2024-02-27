@@ -8,7 +8,7 @@ yolo_train/yolov8s.pt
 yolo_train/yolov8n.pt
 dataset
 yolov8m.pt
-
+object_coordinates.csv
 #Folders
 FastSAM/
 output/
