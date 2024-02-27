@@ -51,7 +51,7 @@ sudo apt-get install libxcb-cursor0
 ### 2nd Step: Clone Repository and Install Requirements
 
 ```bash
-git clone https://github.com/safouaneelg/FusionVision.git
+git clone https://github.com/safouane95/FusionVision.git
 cd FusionVision/
 pip install -r requirements.txt
 ```
@@ -87,57 +87,47 @@ _The provided YOLO weights in this code are customly trained, as mentioned in th
 The code for **FusionVision** pipeline is available at `FusionVisionV0.3.py`. To run the 3D object detection, segmentation and reconstruction, use the following terminal command:
 
 ```bash
-python FusionVisionV0.3.py \
-  --yolo_weight /path/to/yolo/weight.pt \  # Path to the YOLO weights file (e.g yolo_train/runs/detect/train/weights/best.pt)
-  --fastsam_weight 'FastSAM-x.pt' \        # Choose the FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
-  --show_yolo \                           # Optional - Show cv2 window with YOLO detection 
-  --show_fastsam \                        # Optional - Show cv2 window with FastSAM detection 
-  --show_mask \                           # Optional - Show a window with the estimated binary masks 
-  --show_3dbbox                           # Optional - Show in open3D window the 3D bounding box
-  --confidence_threshold 0.7 \            # Optional - Set different confidence threshold for YOLO detection (default: 0.7)
-  --conf 0.4 \                            # Optional - Set different confidence threshold for the FastSAM model (default: 0.4)
-  --iou 0.9 \                             # Optional - Set different IoU threshold for non-maximum suppression (default: 0.9)
+python FusionVisionV0.3.py --yolo_weight /path/to/yolo/weight.pt --fastsam_weight FastSAM-x.pt --confidence_threshold 0.7 --conf 0.4 --iou 0.9 --show_3dbbox
 ```
 
+Where:
+  - /path/to/yolo/weight.pt = Path to YOLO weights file (e.g. yolo_train/runs/detect/train/weights/best.pt)
+  - FastSAM-x.pt            = FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
+  - show_yolo               = (Optional) - Show cv2 window with YOLO detection
+  - show_fastsam            = (Optional) - Show cv2 window with FastSAM detection 
+  - show_mask               = (Optional) - Show cv2 window with FastSAM detection
+  - confidence_threshold    = (Optional) - Confidence threshold for YOLO inference (default: 0.7)
+  - conf                    = (Optional) - Set different confidence threshold for the FastSAM model (default: 0.4)
+  - iou                     = (Optional) - Set different IoU threshold for non-maximum suppression (default: 0.9)
+  - show_3dbbox             = (Optional) - Show in open3D window the 3D bounding box
+
+****************
 Additionally:
 
 To visualize YOLO inference in live streaming
 
 ```bash
-python yolo_inference.py \
-  --weights /path/to/yolo/weight.pt \   # Path to YOLO weights file
-  --confidence_threshold 0.7 \          # Optional - Confidence threshold for YOLO inference (default: 0.7)
-  --bbox_color "red" \                  # Optional - Bounding box color (default: "red")
-  --font_scale 0.5 \                    # Optional - Font scale for displaying class_name (default: 0.5)
-  --font_thickness 1                    # Optional - Font thickness for displaying class_name (default: 1)
-
+python yolo_inference.py --weights /path/to/yolo/weight.pt --confidence_threshold 0.7 --bbox_color "red" --font_scale 0.5 --font_thickness 1
 ```
 
-To visualize FastSAM estimation (considering YOLO estimated 2D bbox)
+Where:
+  - /path/to/yolo/weight.pt = Path to YOLO weights file
+  - confidence_threshold  = (Optional) - Confidence threshold for YOLO inference (default: 0.7)
+  - bbox_color            = (Optional) - Bounding box color (default: "red")
+  - font_scale            = (Optional) - Font scale for displaying class_name (default: 0.5)
+  - font_thickness        = (Optional) - Font thickness for displaying class_name (default: 1)
+
+**********  
+To visualize only FastSAM estimation (considering YOLO estimated 2D bbox)
 
 ```bash
-python od_sam_inference.py \               # Run the Python script for object detection FastSAM
-  --yolo_weight /path/to/yolo/weight.pt \  # Specify the path to the YOLO weights file (e.g yolo_train/runs/detect/train/weights/best.pt)
-  --fastsam_weight 'FastSAM-x.pt' \        # Choose the FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
-  --show_mask \                            # Show a window with the estimated binary masks
-  --confidence_threshold 0.7 \             # Optional - Set the confidence threshold for YOLO detection (default: 0.7)
-  --conf 0.4 \                             # Optional - Set the confidence threshold for the FastSAM model (default: 0.4)
-  --iou 0.9                                # Optional - Set the IoU threshold for non-maximum suppression (default: 0.9)
+python od_sam_inference.py --yolo_weight /path/to/yolo/weight.pt --fastsam_weight 'FastSAM-x.pt' --show_mask --confidence_threshold 0.7 --conf 0.4 --iou 0.9
 ```
 
 To visualize both YOLO and SAM inferences simultaneously in two windows
 
 ```bash
-python yolosam_inference.py  \             # Run the Python script for object detection FastSAM
-  --yolo_weight /path/to/yolo/weight.pt \  # Specify the path to the YOLO weights file (e.g yolo_train/runs/detect/train/weights/best.pt)
-  --fastsam_weight 'FastSAM-x.pt' \        # Choose the FastSAM autodownloadable weight files ('FastSAM-x.pt' or 'FastSAM-s.pt')
-  --show_mask \                            # Show a window with the estimated binary masks
-  --confidence_threshold 0.7 \             # Optional - Set the confidence threshold for YOLO detection (default: 0.7)
-  --bbox_color "red" \                     # Optional - Bounding box color (default: "red")
-  --font_scale 0.5 \                       # Optional - Font scale for displaying text (default: 0.5)
-  --font_thickness 1 \                     # Optional - Font thickness for displaying text (default: 1)	 
-  --conf 0.4 \                             # Optional - Set the confidence threshold for the FastSAM model (default: 0.4)
-  --iou 0.9                                # Optional - Set the IoU threshold for non-maximum suppression (default: 0.9)
+python yolosam_inference.py  --yolo_weight /path/to/yolo/weight.pt --fastsam_weight 'FastSAM-x.pt' --show_mask --confidence_threshold 0.7 --bbox_color "red" --font_scale 0.5 --font_thickness 1 --conf 0.4 --iou 0.9
 ```
 
 ## CUSTOMISED DETECTION
@@ -167,12 +157,7 @@ python yolo_train/train_yolo.py --data /path/to/data.yaml --epochs 150
 You can test the quality of your training using the following command
 
 ```bash
-python yolo_inference.py \
-  --weights /path/to/yolo/weight.pt \  # Path to YOLO weights file
-  --confidence_threshold 0.7 \          # Optional - Confidence threshold for YOLO inference (default: 0.7)
-  --bbox_color "red" \                  # Optional - Bounding box color (default: "red")
-  --font_scale 0.5 \                    # Optional - Font scale for displaying text (default: 0.5)
-  --font_thickness 1                    # Optional - Font thickness for displaying text (default: 1)
+python yolo_inference.py --weights /path/to/yolo/weight.pt --confidence_threshold 0.7 --bbox_color "red" --font_scale 0.5 --font_thickness 1
 ```
 
 choose your colors from the following table:
