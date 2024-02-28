@@ -13,7 +13,7 @@ A (non-released) Webapp demo preview of YOLO and FastSAM on live realsense strea
 
 The development and implementation of the proposed method are structured according to the detailed flowchart outlined below. This comprehensive process ensures a robust and realtime application of the proposed **FusionVision** approach, resulting in a fast determination, 3D localisation and isolation of 3D objects.
 
-![FusionVision-Flowchart](images/FusionVision_pipeline.gif)
+![FusionVision-Flowchart](images/FusionVisionPipeline.gif)
 
 You can also check the RGBD 3D segmentation in this GIF:
 
