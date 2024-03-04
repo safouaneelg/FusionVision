@@ -1,5 +1,6 @@
 ![FusionVision](images/FusionVision.png)
 
+You can find the Pre-print at this link: [ArXiv](https://arxiv.org/abs/2403.00175)
 ## Introduction
 
 **FusionVision** is a project that combines the power of Intel RealSense RGBD cameras, YOLO for object detection, FastSAM for fast segmentation and depth map processing for accurate 3D.
