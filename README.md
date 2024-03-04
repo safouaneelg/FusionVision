@@ -52,7 +52,7 @@ sudo apt-get install libxcb-cursor0
 ### 2nd Step: Clone Repository and Install Requirements
 
 ```bash
-git clone https://github.com/safouane95/FusionVision.git
+git clone https://github.com/safouaneelg/FusionVision.git
 cd FusionVision/
 pip install -r requirements.txt
 ```
