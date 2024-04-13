@@ -1,5 +1,6 @@
 ![FusionVision](images/FusionVision.png)
 
+You can find the Pre-print at this link: [ArXiv](https://arxiv.org/abs/2403.00175)
 ## Introduction
 
 **FusionVision** is a project that combines the power of Intel RealSense RGBD cameras, YOLO for object detection, FastSAM for fast segmentation and depth map processing for accurate 3D.
@@ -51,7 +52,7 @@ sudo apt-get install libxcb-cursor0
 ### 2nd Step: Clone Repository and Install Requirements
 
 ```bash
-git clone https://github.com/safouane95/FusionVision.git
+git clone https://github.com/safouaneelg/FusionVision.git
 cd FusionVision/
 pip install -r requirements.txt
 ```
@@ -205,6 +206,19 @@ Make sure you train YOLO on you custom dataset using the version ultralytics==8.
         ```RuntimeError: Frame didn't arrive within 5000```
 change the port or try again.
 
+## Citation
+
+If you use our repository or any of our implementation please cite us:
+```
+@misc{ghazouali2024fusionvision,
+      title={FusionVision: A comprehensive approach of 3D object reconstruction and segmentation from RGB-D cameras using YOLO and fast segment anything}, 
+      author={Safouane El Ghazouali and Youssef Mhirit and Ali Oukhrid and Umberto Michelucci and Hichem Nouira},
+      year={2024},
+      eprint={2403.00175},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
 
 ## LICENCE
 
