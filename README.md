@@ -210,13 +210,17 @@ change the port or try again.
 
 If you use our repository or any of our implementation please cite us:
 ```
-@misc{ghazouali2024fusionvision,
-      title={FusionVision: A comprehensive approach of 3D object reconstruction and segmentation from RGB-D cameras using YOLO and fast segment anything}, 
-      author={Safouane El Ghazouali and Youssef Mhirit and Ali Oukhrid and Umberto Michelucci and Hichem Nouira},
-      year={2024},
-      eprint={2403.00175},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@Article{s24092889,
+  AUTHOR = {Ghazouali, Safouane El and Mhirit, Youssef and Oukhrid, Ali and Michelucci, Umberto and Nouira, Hichem},
+  TITLE = {FusionVision: A Comprehensive Approach of 3D Object Reconstruction and Segmentation from RGB-D Cameras Using YOLO and Fast Segment Anything},
+  JOURNAL = {Sensors},
+  VOLUME = {24},
+  YEAR = {2024},
+  NUMBER = {9},
+  ARTICLE-NUMBER = {2889},
+  URL = {https://www.mdpi.com/1424-8220/24/9/2889},
+  ISSN = {1424-8220},
+  DOI = {10.3390/s24092889}
 }
 ```
 
