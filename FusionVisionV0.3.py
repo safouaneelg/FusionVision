@@ -131,10 +131,20 @@ def FusionVision(args):
                     for box in bounding_boxes:
                         x_min, y_min, x_max, y_max = box
 
+                        print(f"ROI: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}")
+
                         # Extract the region of interest from the denoised point cloud
                         roi_points = np.asarray(denoised_pcd.points)
                         roi_points = roi_points[(roi_points[:, 0] >= x_min) & (roi_points[:, 0] <= x_max) &
                                                 (roi_points[:, 1] >= y_min) & (roi_points[:, 1] <= y_max)]
+
+                        print(f"ROI Points Shape: {roi_points.shape}")
+                        
+                        ############################################################
+                        if roi_points.size == 0:                                   #
+                            print(f"Empty ROI points for bounding box: {box}")     #
+                            continue                                               #
+                        ############################################################
 
                         # Compute the bounding box dimensions based on the region of interest
                         bbox_lines = o3d.geometry.LineSet()
