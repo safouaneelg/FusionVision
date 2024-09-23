@@ -11,3 +11,4 @@ pandas>=1.1.4
 seaborn>=0.11.0
 ultralytics==8.0.120
 open3d==0.17.0
+pyrealsense2
