@@ -1,0 +1,5 @@
+{
+  "name": "FusionVision Project Page",
+  "description": "A static webpage for the FusionVision project, showcasing the comprehensive approach to 3D object reconstruction and segmentation from RGB-D cameras using YOLO and Fast Segment Anything.",
+  "requestFramePermissions": []
+}
