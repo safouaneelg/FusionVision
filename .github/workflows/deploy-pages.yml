@@ -5,7 +5,7 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main # or master, whichever is your default branch
+      - release0.1
   workflow_dispatch:
 
 permissions:
