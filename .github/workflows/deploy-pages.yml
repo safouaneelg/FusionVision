@@ -1,0 +1,52 @@
+# .github/workflows/deploy-pages.yml
+
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # or master, whichever is your default branch
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: website/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./website # Run this command inside the 'website' folder
+
+      - name: Build
+        run: npm run build
+        working-directory: ./website # Run this command inside the 'website' folder
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./website/dist # The folder Vite creates with the final website
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
